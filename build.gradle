@@ -1,0 +1,14 @@
+plugins {
+  id "idea"
+}
+
+allprojects  {
+
+  apply plugin: "base"
+  apply plugin: "maven"
+
+  group = "daggerok"
+  version = "0.0.1"
+
+  defaultTasks "clean", "build"
+}

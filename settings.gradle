@@ -1,0 +1,3 @@
+rootProject.name = "scala-examples"
+include ":lazy-evaluation"
+project(":lazy-evaluation").projectDir = "$rootDir/lazy-evaluation" as File

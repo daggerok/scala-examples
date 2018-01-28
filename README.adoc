@@ -1,0 +1,8 @@
+= lazy-evaluation image:https://travis-ci.org/daggerok/scala-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/scala-examples"]
+
+. link:https://github.com/daggerok/scala-gradle-scalatra-spring-boot[scala gradle scalatra spring-boot]
+//. link:https://github.com/daggerok/scala.js-starter[scala.js starter]
+. link:https://github.com/daggerok/scala-gradle-testing[scala gradle testing]
+. link:https://github.com/daggerok/scala-gradle-spring-boot[scala gradle spring-boot]
+. link:https://github.com/daggerok/learn-jvm[spring boot]
+. link:./lazy-evaluation/[Lazy evaluation in scala]

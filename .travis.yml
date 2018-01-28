@@ -1,0 +1,39 @@
+group: travis_lts
+#sudo: required
+#service:
+#- docker
+env:
+  global:
+    TERM=dumb
+language: java
+jdk:
+- oraclejdk8
+- openjdk8
+install: true
+before_script:
+- sudo apt udate -y || true
+- sudo apt install -y --no-install-recommends git
+#- sudo apt install -y --no-install-recommends curl jq libxml2-utils docker-ce python-pip
+#- sudo pip install docker-compose httpie
+#- source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
+script:
+- bash ./mvnw
+- bash ./gradlew
+# old
+- expert root=${pwd}
+- >
+  for project \
+    scala-gradle-scalatra-spring-boot \
+    scala-gradle-testing \
+    scala-gradle-spring-boot \
+    learn-jvm \
+  ; do
+    cd ${root}
+    git clone https://github.com/daggerok/${project}
+    cd ${project}
+    bash gradlew
+  done;
+cache:
+  directories:
+  - $HOME/.m2
+  - $HOME/.gradle
