@@ -1,6 +1,6 @@
 package daggerok
 
-class PrimeNumbers {
+object PrimeNumbers {
 
   def of(ns: Stream[Int]): Stream[Int] =
     ns.head #::
