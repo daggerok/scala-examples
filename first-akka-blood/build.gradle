@@ -1,6 +1,6 @@
 buildscript {
   ext {
-    akkaVersion = "2.5.4"
+    akkaVersion = "2.5.9"
     lombokVersion = "1.16.18"
     slf4jVersion = "1.7.25"
     javaVersion = "1.8"
@@ -18,8 +18,8 @@ plugins {
   id "maven"
   id "eclipse"
   id "application"
-  id "com.github.johnrengelman.shadow" version "2.0.2"
-  id "com.avast.gradle.docker-compose" version "0.6.12"
+  id "com.avast.gradle.docker-compose" version "0.6.13"
+//  id "com.github.johnrengelman.shadow" version "2.0.2"
 }
 
 group = "daggerok"
@@ -27,9 +27,8 @@ version = "0.0.1"
 sourceCompatibility = targetCompatibility = "$javaVersion"
 
 mainClassName = "daggerok.App"
-shadowJar.mustRunAfter jar
 
-defaultTasks "clean", "build"
+defaultTasks "clean", "installDist"
 
 repositories {
   mavenLocal()
@@ -38,7 +37,6 @@ repositories {
 
 dependencies {
 
-  compile "com.typesafe.akka:akka-actor_$scalaCompatVersion:$akkaVersion"
   compile "com.typesafe.akka:akka-persistence_$scalaCompatVersion:$akkaVersion",
       "org.iq80.leveldb:leveldb:0.7",
       "org.fusesource.leveldbjni:leveldbjni-all:1.8"
@@ -61,23 +59,45 @@ dependencies {
 }
 
 dockerCompose {
-  useComposeFiles = [project.file("docker-compose-gradle.yaml")]
-  captureContainersOutput = true
+  useComposeFiles = [project.file("docker-compose.yaml")]
+//  captureContainersOutput = true
+  captureContainersOutput = false
   stopContainers = true
   removeContainers = true
   removeImages = "Local"
   removeVolumes = true
   removeOrphans = true
+  forceRecreate = true
+  waitForTcpPorts = false
   projectName = project.name
 }
 
-composeUp.dependsOn assemble
+composeUp.dependsOn installDist
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "4.5"
+  gradleVersion = "4.5.1"
   distributionType = "ALL"
 }
 
 test {
   systemProperties "property": "value"
 }
+
+clean.doFirst {
+  delete "$projectDir/$out"
+}
+
+//shadowJar.mustRunAfter jar
+//
+//shadowJar {
+//  transform(com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer) {
+//    resource = "application.conf"
+//  }
+//}
+//
+//jar {
+//  baseName = project.name
+//  manifest {
+//    attributes("Main-Class": mainClassName)
+//  }
+//}

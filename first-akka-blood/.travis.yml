@@ -1,6 +1,6 @@
-#sudo: required
-#service:
-#- docker
+service:
+- docker
+sudo: required
 group: travis_lts
 env:
   global:
@@ -10,15 +10,26 @@ jdk:
 - oraclejdk8
 - openjdk8
 install: true
-#before_script:
-#- sudo apt udate -y || true
-#- sudo apt install -y --no-install-recommends curl jq libxml2-utils docker-ce python-pip
-#- sudo pip install docker-compose httpie
-#- source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
+before_script:
+- sudo apt udate -y || true
+- sudo apt install -y --no-install-recommends curl docker-ce python-pip
+- sudo pip install docker-compose
+- source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
 script:
-- bash ./mvnw
-- bash ./gradlew
-cache:
-  directories:
-  - $HOME/.m2
-  - $HOME/.gradle
+- bash gradlew
+- bash build/install/first-akka-blood/bin/first-akka-blood &
+- sleep 10
+- sudo killall -9 java
+- docker-compose build --force-rm
+- docker-compose up &
+- sleep 10
+- docker-compose down -v
+- bash gradlew clean distZip
+- unzip -o build/distributions/first-akka-blood-0.0.1.zip -d /tmp
+- bash /tmp/first-akka-blood-0.0.1/bin/first-akka-blood &
+- sleep 10
+- sudo killall -9 java
+- bash gradlew composeUp
+- docker logs -f firstakkablood_first-akka-blood-app_1 &
+- sleep 10
+- bash gradlew composeDown

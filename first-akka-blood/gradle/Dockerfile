@@ -9,14 +9,6 @@ RUN apk --no-cache add busybox-suid bash curl sudo \
 USER appuser
 WORKDIR /home/appuser
 VOLUME /home/appuser
-ENTRYPOINT java -XX:+UnlockExperimentalVMOptions \
-                -XX:+UseCGroupMemoryLimitForHeap \
-                -XshowSettings:vm \
-                -jar ./app.jar
 CMD /bin/bash
-#EXPOSE 8080
-#HEALTHCHECK --interval=1s \
-#            --timeout=1s \
-#            --retries=35 \
-#            CMD curl -f http://127.0.0.1:8080/health || exit 1
-COPY --chown=appuser ./build/libs/*.jar ./app.jar
+ENTRYPOINT /bin/bash /home/appuser/app/bin/first-akka-blood
+COPY --chown=appuser ./build/install/first-akka-blood app

@@ -1,7 +1,29 @@
 = first-akka-blood
 
-in progress...
+.build
+----
+bash gradlew clean installDist
+bash build/install/first-akka-blood/bin/first-akka-blood
+----
+
+.docker
+----
+bash gradlew clean installDist
+docker-compose up --build --force-recreate
+----
+
+.delivery
+----
+# producer side
+bash gradlew clean distZip # cp -Rf build/distributions path/to/somewhere
+
+# consumer side
+mkdir -p /opt/my-apps
+unzip -o build/distributions/first-akka-blood-0.0.1.zip -d /opt/my-apps
+bash /opt/my-apps/first-akka-blood-0.0.1/bin/first-akka-blood
+----
 
 links:
 
 . link:https://www.youtube.com/watch?v=gvsRl6xZiiE[Event-Sourced Architectures with Akka]
+. link:https://github.com/akka/akka-samples[GIthub: akka/akka-samples]

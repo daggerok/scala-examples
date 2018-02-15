@@ -11,7 +11,7 @@
 
   <modules>
     <module>lazy-evaluation</module>
-    <module>first-akka-blood</module>
+    <!--<module>first-akka-blood</module>-->
   </modules>
 
   <build>

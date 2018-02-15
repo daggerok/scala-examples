@@ -2,17 +2,15 @@ version: "2.1"
 
 services:
 
-  gradle-first-akka-blood-app:
+  first-akka-blood-app:
     build:
       context: .
       dockerfile: ./gradle/Dockerfile
-    volumes: ["gradle-app-data:/home/appuser"]
+    volumes: ["app-data:/home/appuser"]
     networks: [backing-services]
-#    ports: ["8080:8080"]
-#    restart: unless-stopped
 
 volumes:
-  gradle-app-data: {}
+  app-data: {}
 
 networks:
   backing-services:
