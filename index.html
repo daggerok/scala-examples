@@ -544,13 +544,14 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-02-16 06:09:40 EET</span>
+<span id="revdate">2018-02-16 06:23:04 EET</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#links">1. links</a></li>
-<li><a href="#enjoy">2. Enjoy! :)</a></li>
+<ul class="sectlevel2">
+<li><a href="#first-akka-persistence">1. first akka-persistence</a></li>
+<li><a href="#links">2. links</a></li>
+<li><a href="#enjoy">3. Enjoy! :)</a></li>
 </ul>
 </div>
 </div>
@@ -563,10 +564,65 @@ table.CodeRay td.code>pre{padding:0}
 <a href="https://github.com/daggerok/scala-examples">examples from scala-examples repository</a>.
 It&#8217;s contains some Scala playground projects</p>
 </div>
+<div class="paragraph">
+<p>lazy-evaluation</p>
+</div>
+<div class="paragraph">
+<p>links:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://www.youtube.com/watch?v=84MfG4tp30s&amp;t=1181s">Lazy Java by Mario Fusco</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="first-akka-persistence">1. first akka-persistence</h3>
+<div class="listingblock">
+<div class="title">build</div>
+<div class="content">
+<pre>bash gradlew clean installDist
+bash build/install/first-akka-blood/bin/first-akka-blood</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">docker</div>
+<div class="content">
+<pre>bash gradlew clean installDist
+docker-compose up --build --force-recreate</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">delivery</div>
+<div class="content">
+<pre># producer side
+bash gradlew clean distZip # cp -Rf build/distributions path/to/somewhere
+
+# consumer side
+mkdir -p /opt/my-apps
+unzip -o build/distributions/first-akka-blood-0.0.1.zip -d /opt/my-apps
+bash /opt/my-apps/first-akka-blood-0.0.1/bin/first-akka-blood</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>links:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://www.youtube.com/watch?v=gvsRl6xZiiE">Event-Sourced Architectures with Akka</a></p>
+</li>
+<li>
+<p><a href="https://github.com/akka/akka-samples">GIthub: akka/akka-samples</a></p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect1">
-<h2 id="links">1. links</h2>
+<h2 id="links">2. links</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -587,7 +643,7 @@ It&#8217;s contains some Scala playground projects</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="enjoy">2. Enjoy! :)</h2>
+<h2 id="enjoy">3. Enjoy! :)</h2>
 <div class="sectionbody">
 
 </div>
@@ -596,7 +652,7 @@ It&#8217;s contains some Scala playground projects</p>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-02-16 06:09:40 EET
+Last updated 2018-02-16 06:23:04 EET
 </div>
 </div>
 </body>
