@@ -1,5 +1,6 @@
 rootProject.name = "scala-examples"
 [
+    "docs",
     "lazy-evaluation",
 
 ].each {

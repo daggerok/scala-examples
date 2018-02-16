@@ -18,6 +18,7 @@ before_script:
 script:
 - bash ./mvnw
 - bash ./gradlew
+- bash ./gradlew asciidoctor # docs
 - export root=$(pwd)
 #
 - cd ${root}/first-akka-blood

@@ -1,0 +1,4 @@
+. link:https://dzone.com/refcardz/scala[Getting Started With Scala]
+. link:https://www.youtube.com/watch?v=YXDm3WHZT5g[Plain Functional Programming by Martin Odersky]
+. link:https://www.lightbend.com/scala[Scala learning path]
+. link:https://www.lightbend.com/learn#type=ebook[Learning path]

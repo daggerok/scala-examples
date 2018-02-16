@@ -1,5 +1,10 @@
 = lazy-evaluation
 
+//tag::content[]
+lazy-evaluation
+
 links:
 
 . link:https://www.youtube.com/watch?v=84MfG4tp30s&t=1181s[Lazy Java by Mario Fusco]
+
+//end::content[]
