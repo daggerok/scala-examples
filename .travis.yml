@@ -1,20 +1,28 @@
 service:
 - docker
-sudo: required
-group: travis_lts
+
 env:
   global:
     TERM=dumb
+
 language: java
-jdk:
-- oraclejdk8
-- openjdk8
+jdk: oraclejdk8
+
+addons:
+  apt:
+    update: true
+    packages:
+    - curl
+    - docker-ce
+    - python-pip
+    - git
+    - bash
+
 install: true
 before_script:
-- sudo apt udate -y || true
-- sudo apt install -y --no-install-recommends curl docker-ce python-pip git
 - sudo pip install docker-compose
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
+
 script:
 - bash ./mvnw
 - bash ./gradlew
@@ -55,7 +63,9 @@ script:
     bash gradlew
     echo "${project} done."
   done;
+
 cache:
   directories:
   - $HOME/.m2
   - $HOME/.gradle
+  - $HOME/.docker
