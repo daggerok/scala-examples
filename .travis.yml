@@ -73,7 +73,7 @@ env:
 
 before_deploy:
 - cd "${root}"
-- ./gradlew
+- ./gradlew documentation
 
 deploy:
   provider: pages
