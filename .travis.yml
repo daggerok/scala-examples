@@ -20,12 +20,12 @@ addons:
 
 install: true
 before_script:
-- sudo pip install docker-compose
+- sudo pip install docker-compose >/dev/null 2>&1
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
 
 script:
 - bash ./mvnw
-- bash ./gradlew
+- bash ./gradlew >/dev/null
 - bash ./gradlew asciidoctor # docs
 - export root=$(pwd)
 #
@@ -38,7 +38,7 @@ script:
 - docker-compose up &
 - sleep 10
 - docker-compose down -v
-- bash gradlew clean distZip
+- bash gradlew clean distZip >/dev/null
 - unzip -o build/distributions/first-akka-blood-0.0.1.zip -d /tmp
 - bash /tmp/first-akka-blood-0.0.1/bin/first-akka-blood &
 - sleep 10
@@ -46,7 +46,7 @@ script:
 - bash gradlew composeUp
 - docker logs -f firstakkablood_first-akka-blood-app_1 &
 - sleep 10
-- bash gradlew composeDown
+- bash gradlew composeDown >/dev/null
 #
 - >
   for project in \
@@ -60,7 +60,7 @@ script:
     git clone "https://github.com/daggerok/${project}"
     cd "${project}"
     echo "building..."
-    bash gradlew
+    bash gradlew >/dev/null
     echo "${project} done."
   done;
 
