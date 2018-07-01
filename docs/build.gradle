@@ -1,6 +1,7 @@
 buildscript {
   ext {
-    asciidocBuildDir = "$buildDir/asciidoc"
+    adocProcessingOutputDir = project.file("$buildDir/asciidoc")
+    adocOutputDir = project.file("$rootDir/target/generated-docs")
   }
 }
 
@@ -22,7 +23,7 @@ asciidoctor {
   sources {
     include "index.adoc"
   }
-  outputDir = project.file("$asciidocBuildDir")
+  outputDir = project.file("$adocProcessingOutputDir")
   attributes toc: "left",
       idprefix: "",
       docinfo1: "",
@@ -36,31 +37,36 @@ asciidoctor {
 }
 
 asciidoctor.doLast {
-  file("$asciidocBuildDir/html5/404.html").text = file("$asciidocBuildDir/html5/index.html").text
-  file("$asciidocBuildDir/html5/.nojekyll").text = "\n"
+  def html5 = "$adocProcessingOutputDir/html5"
+  project.file("$html5/404.html").text = project.file("$html5/index.html").text
+  project.file("$html5/.nojekyll").text = ''
+}
+
+task documentation(type: Copy, dependsOn: asciidoctor) {
+  shouldRunAfter clean, asciidoctor
+  from "$asciidoctor.outputDir/html5"
+  from "$asciidoctor.outputDir/pdf"
+  from "$asciidoctor.sourceDir/static", {
+    into '.'
+  }
+  into adocOutputDir
 }
 
 gitPublish {
-
-  repoUri = "git@github.com:daggerok/scala-examples.git"
-  branch = "gh-pages"
+  // repoUri = "git@gitlab.com:daggerok/${rootProject.name}.git" // same gitlab plugin?
+  repoUri = "git@github.com:daggerok/${rootProject.name}.git"
+  branch = 'gh-pages'
 
   contents {
-    from("$asciidocBuildDir/html5")
-    from("$projectDir/src/static") {
-      into "."
+    from adocOutputDir, {
+      into '.'
     }
   }
 
-  commitMessage = "Documentation for ${project.group}:${project.name}:$project.version"
+  commitMessage = "Publish $rootProject.name documentation (${project.group}:${project.name}:$project.version)"
 }
 
 gitPublishPush.dependsOn asciidoctor
 gitPublishPush.shouldRunAfter clean, asciidoctor, build
 
 task docs(dependsOn: gitPublishPush)
-
-task wrapper(type: Wrapper) {
-  gradleVersion = "4.0"
-  distributionType = "BIN"
-}

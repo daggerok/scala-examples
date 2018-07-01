@@ -1,10 +1,6 @@
 service:
 - docker
 
-env:
-  global:
-    TERM=dumb
-
 language: java
 jdk: oraclejdk8
 
@@ -69,3 +65,23 @@ cache:
   - $HOME/.m2
   - $HOME/.gradle
   - $HOME/.docker
+
+env:
+  global:
+  - TERM=dumb
+  - secure: Of3ahCTqkQ5s+2dwAGUaSJSV4ty4KKoLmzFwZNbwzE6dyOvsBWGa2OG6fIamHhE99Rf2ZulsVW99rfLWOIoaN0Pc105UeWo+SU1VMhk140rNMsVAvVdrDX9W4BhHt6KS0SZ1l7hn+bnorP/ZZCaoP1Shiof6csZ1eN8N0ZQjbx2BAU96zsyFBWoJlQTB4cYF9ce8SWrkvD5Rx0ItbBNNZJwHX35fZ4GM+m4qySwqIfr+2eoIDfv6blC+oQCaFxra9xHx/3IzTsLzB+S0YQfYREP8E1jiNNTRFCXweN+YoDACRQcU+8XvYmR8T1nKFxk+fGl61+y5J3oQYnP0YJPR59kmKV3W2NUn6mZC/jjh7HfXbLeef3xUJIB/OV9JyyGC+NKUHwBciU7rN+Z0qc+PSvh79k/OmLq6iUkOcuf8N9hO13d64eBtYkFkcrTR6PANk01moyMqdfp3vwGSloTJAqPQpNT+smgdSPAhhGwz3H58OVeqJ2MwvnqjfLBGiYRPELQxQUlK4LPiC2FUDAtPoHCHIijbwyCWc1FFQcbzt1xttB+RD1zdqhCgc55xCY19gEogpPtPt895AQtGmDOry9qOWAoCOFm9JNL6SCZN04XDmbzvop0sJCKTSDx1KjonFzdUYhV9GPBUlrXZ/Z4U4D507S4pFYcLOJDeVzwgo5c=
+
+before_deploy:
+- cd "${root}"
+- ./gradlew
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  # travis encrypt GITHUB_TOKEN=<your github repo token> --add
+  github-token: "$GITHUB_TOKEN"
+  keep-history: true
+  on:
+    branch: master
+  local-dir: target/generated-docs
+  target_branch: gh-pages
