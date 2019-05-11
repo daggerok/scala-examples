@@ -1,5 +1,7 @@
 = scala-examples image:https://travis-ci.org/daggerok/scala-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/scala-examples"]
 
+- link:https://github.com/daggerok/main-starter/tree/akka-http/[Akka HTTP java gradle / maven correct reference.conf in fat jar example]
+- link:https://github.com/daggerok/main-starter/tree/akka-http/[Akka java gradle / maven example]
 - link:./first-akka-blood/[akka-persistence built using Gradle]
 - link:./lazy-evaluation/[Lazy evaluation in scala]
 - link:https://github.com/daggerok/scala-gradle-scalatra-spring-boot[scala gradle scalatra spring-boot]
